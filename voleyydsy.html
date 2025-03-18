@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voleybol Sitesi</title>
+    <style>
+        /* Genel Stil */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background: #f0f0f0; 
+            color: #333;
+        }
+        
+        .container-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            background: #ba0000;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        header h1 {
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Navigasyon */
+        nav { 
+            background: #050063; 
+            padding: 15px 0; 
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        nav a { 
+            color: white; 
+            padding: 10px 15px; 
+            text-decoration: none; 
+            margin: 0 5px; 
+            border-radius: 5px;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+        
+        nav a:hover { 
+            background: #0a0a7a; 
+        }
+        
+        nav a.active-nav {
+            background: #ba0000;
+        }
+        
+        /* Tab İçerikleri */
+        .tab { 
+            display: none; 
+            padding: 20px; 
+            margin: 20px 0; 
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .active { 
+            display: block; 
+        }
+        
+        /* İçerik Düzeni */
+        .container { 
+            display: flex; 
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .left, .right { 
+            width: 48%; 
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        @media (max-width: 768px) {
+            .left, .right {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+        
+        /* Başlıklar */
+        h1 {
+            color: #ba0000;
+            border-bottom: 2px solid #ba0000;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        h2 {
+            color: #050063;
+            border-left: 4px solid #050063;
+            padding-left: 10px;
+        }
+        
+        /* Listeler */
+        ul {
+            padding-left: 20px;
+        }
+        
+        ul li {
+            margin-bottom: 10px;
+            padding: 5px 0;
+        }
+        
+        /* Haberler */
+        #haberler ul li {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        
+        #haberler ul li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Takımlar */
+        .team-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-logo {
+            width: 50px;
+            height: 50px;
+            background: #eee;
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        /* Fikstur */
+        .match {
+            background: #f5f5f5;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #ba0000;
+        }
+        
+        .match-date {
+            font-weight: bold;
+            color: #050063;
+        }
+        
+        /* Footer */
+        footer {
+            background: #050063;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+        
+        /* Sosyal Medya */
+        .social-media {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .social-icon {
+            margin: 0 10px;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: #050063;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .social-icon:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>VOLEYBOL TÜRKİYE</h1>
+        <p>Türkiye'nin en güncel voleybol portalı</p>
+    </header>
+    
+    <nav id="main-nav">
+        <a href="#" class="nav-link active-nav" data-tab="anasayfa">Anasayfa</a>
+        <a href="#" class="nav-link" data-tab="takimlar">Takımlar</a>
+        <a href="#" class="nav-link" data-tab="fikstur">Fikstür</a>
+        <a href="#" class="nav-link" data-tab="sampiyonlar">Şampiyonlar</a>
+        <a href="#" class="nav-link" data-tab="haberler">Voleybol Haberleri</a>
+        <a href="#" class="nav-link" data-tab="hakkimizda">Hakkımızda</a>
+    </nav>
+
+    <div class="container-main">
+        <div id="anasayfa" class="tab active">
+            <h1>Voleybol Dünyasına Hoş Geldiniz</h1>
+            <p>Türkiye'nin en güncel ve kapsamlı voleybol portalına hoş geldiniz. Burada Sultanlar ve Efeler Ligi başta olmak üzere, tüm voleybol dünyasındaki gelişmeleri yakından takip edebilirsiniz.</p>
+            
+            <div class="container">
+                <div class="left">
+                    <h2>Son Haberler</h2>
+                    <div class="match">
+                        <span class="match-date">18 Mart 2025</span>
+                        <p>VakıfBank, Şampiyonlar Ligi çeyrek finalinde!</p>
+                    </div>
+                    <div class="match">
+                        <span class="match-date">17 Mart 2025</span>
+                        <p>Fenerbahçe Opet, Galatasaray karşısında 3-0 galip geldi.</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <h2>Gelecek Maçlar</h2>
+                    <div class="match">
+                        <span class="match-date">20 Mart 2025</span>
+                        <p>VakıfBank vs Eczacıbaşı Dynavit (19:00)</p>
+                    </div>
+                    <div class="match">
+                        <span class="match-date">22 Mart 2025</span>
+                        <p>Fenerbahçe HDI Sigorta vs Galatasaray HDI Sigorta (17:30)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="takimlar" class="tab">
+            <h1>Takımlar</h1>
+            <div class="container">
+                <div class="left">
+                    <h2>Sultanlar Ligi</h2>
+                    <div class="team-card">
+                        <div class="team-logo">VB</div>
+                        <div>VakıfBank</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-logo">ED</div>
+                        <div>Eczacıbaşı Dynavit</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-logo">FB</div>
+                        <div>Fenerbahçe Opet</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-logo">GS</div>
+                        <div>Galatasaray Daikin</div>
+                    </div>
+                </div>
+                <div class="right">
+                    <h2>Efeler Ligi</h2>
+                    <div class="team-card">
+                        <div class="team-logo">HB</div>
+                        <div>Halkbank</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-logo">ZB</div>
+                        <div>Ziraat Bankkart</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-logo">FB</div>
+                        <div>Fenerbahçe HDI Sigorta</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-logo">GS</div>
+                        <div>Galatasaray HDI Sigorta</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="fikstur" class="tab">
+            <h1>Fikstür</h1>
+            <div class="container">
+                <div class="left">
+                    <h2>Sultanlar Ligi</h2>
+                    <div class="match">
+                        <span class="match-date">20 Mart 2025 (19:00)</span>
+                        <p>VakıfBank vs Eczacıbaşı Dynavit</p>
+                        <p><small>Yer: VakıfBank Spor Sarayı</small></p>
+                    </div>
+                    <div class="match">
+                        <span class="match-date">22 Mart 2025 (16:00)</span>
+                        <p>Fenerbahçe Opet vs Galatasaray Daikin</p>
+                        <p><small>Yer: Metro Enerji Spor Salonu</small></p>
+                    </div>
+                </div>
+                <div class="right">
+                    <h2>Efeler Ligi</h2>
+                    <div class="match">
+                        <span class="match-date">20 Mart 2025 (17:30)</span>
+                        <p>Halkbank vs Ziraat Bankkart</p>
+                        <p><small>Yer: TVF Başkent Salonu</small></p>
+                    </div>
+                    <div class="match">
+                        <span class="match-date">22 Mart 2025 (17:30)</span>
+                        <p>Fenerbahçe HDI Sigorta vs Galatasaray HDI Sigorta</p>
+                        <p><small>Yer: Burhan Felek Voleybol Salonu</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="sampiyonlar" class="tab">
+            <h1>Şampiyonlar</h1>
+            <div class="container">
+                <div class="left">
+                    <h2>Sultanlar Ligi</h2>
+                    <div class="match">
+                        <span class="match-date">2024 Sezonu</span>
+                        <p>VakıfBank</p>
+                    </div>
+                    <div class="match">
+                        <span class="match-date">2023 Sezonu</span>
+                        <p>Eczacıbaşı Dynavit</p>
+                    </div>
+                    <div class="match">
+                        <span class="match-date">2022 Sezonu</span>
+                        <p>Fenerbahçe Opet</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <h2>Efeler Ligi</h2>
+                    <div class="match">
+                        <span class="match-date">2024 Sezonu</span>
+                        <p>Halkbank</p>
+                    </div>
+                    <div class="match">
+                        <span class="match-date">2023 Sezonu</span>
+                        <p>Ziraat Bankkart</p>
+                    </div>
+                    <div class="match">
+                        <span class="match-date">2022 Sezonu</span>
+                        <p>Fenerbahçe HDI Sigorta</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <h2>Avrupa Kupaları</h2>
+                <div class="container">
+                    <div class="left">
+                        <h3>CEV Şampiyonlar Ligi (Kadınlar)</h3>
+                        <div class="match">
+                            <span class="match-date">2024</span>
+                            <p>VakıfBank (Türkiye)</p>
+                        </div>
+                        <div class="match">
+                            <span class="match-date">2023</span>
+                            <p>A. Carraro Imoco Volley (İtalya)</p>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <h3>CEV Şampiyonlar Ligi (Erkekler)</h3>
+                        <div class="match">
+                            <span class="match-date">2024</span>
+                            <p>Grupa Azoty ZAKSA (Polonya)</p>
+                        </div>
+                        <div class="match">
+                            <span class="match-date">2023</span>
+                            <p>Itas Trentino (İtalya)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="haberler" class="tab">
+            <h1>Voleybol Haberleri</h1>
+            <ul>
+                <li>
+                    <h3>VakıfBank, Şampiyonlar Ligi çeyrek finalinde!</h3>
+                    <p><small>18 Mart 2025</small></p>
+                    <p>VakıfBank, Şampiyonlar Ligi'nde İtalyan ekibi Savino Del Bene'yi 3-1 yenerek çeyrek finale yükseldi. Sarı-siyahlılar çeyrek finalde Fransız ekibi RC Cannes ile karşılaşacak.</p>
+                </li>
+                <li>
+                    <h3>Halkbank, Efeler Ligi'nde ilk dörde kalamadı</h3>
+                    <p><small>17 Mart 2025</small></p>
+                    <p>Efeler Ligi'nde geçen sezonun şampiyonu Halkbank, play-off çeyrek finalinde Spor Toto'ya elenerek ilk dört takım arasına giremedi.</p>
+                </li>
+                <li>
+                    <h3>Eczacıbaşı Dynavit, Ferhat Akbaş ile yollarını ayırdı</h3>
+                    <p><small>16 Mart 2025</small></p>
+                    <p>Sultanlar Ligi'nde mücadele eden Eczacıbaşı Dynavit, başantrenör Ferhat Akbaş ile karşılıklı anlaşarak yollarını ayırdıklarını duyurdu. Ekibin başına Yıldırım Demirören'in geçeceği açıklandı.</p>
+                </li>
+                <li>
+                    <h3>Milli Takım hazırlıklarına başladı</h3>
+                    <p><small>15 Mart 2025</small></p>
+                    <p>Filenin Sultanları, Dünya Şampiyonası elemeleri için hazırlıklarına başladı. Milliler, hazırlık kampında iki hazırlık maçı yapacak.</p>
+                </li>
+            </ul>
+        </div>
+        
+        <div id="hakkimizda" class="tab">
+            <h1>Hakkımızda</h1>
+            <p>Bu site, Türkiye'deki voleybolseverler için 2023 yılında oluşturulmuştur. Sultanlar ve Efeler Ligi'ne dair en güncel bilgileri, maç sonuçlarını, önemli haberleri ve istatistikleri paylaşmayı amaçlıyoruz.</p>
+            
+            <h2>Misyonumuz</h2>
+            <p>Voleybol sporunu Türkiye'de daha da yaygınlaştırmak, takımlar ve oyuncular hakkında doğru ve güncel bilgiler sunmak için çalışıyoruz.</p>
+            
+            <h2>İletişim</h2>
+            <p>Bize ulaşmak için: <a href="mailto:info@voleybolturkiye.com">info@voleybolturkiye.com</a></p>
+            
+            <div class="social-media">
+                <a href="#" class="social-icon">f</a>
+                <a href="#" class="social-icon">t</a>
+                <a href="#" class="social-icon">in</a>
+                <a href="#" class="social-icon">ig</a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Voleybol Türkiye. Tüm hakları saklıdır.</p>
+        <p>Bu sitedeki bilgiler bilgilendirme amaçlıdır. Resmi sonuçlar için lütfen TVF'nin resmi sitesini ziyaret ediniz.</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab değiştirme fonksiyonu
+            function showTab(tabId) {
+                let tabs = document.querySelectorAll('.tab');
+                tabs.forEach(tab => tab.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+                
+                // Aktif navigasyon linkini güncelle
+                let navLinks = document.querySelectorAll('.nav-link');
+                navLinks.forEach(link => link.classList.remove('active-nav'));
+                document.querySelector(`[data-tab="${tabId}"]`).classList.add('active-nav');
+            }
+            
+            // Navigasyon linklerine tıklama olaylarını ekle
+            let navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    let tabId = this.getAttribute('data-tab');
+                    showTab(tabId);
+                });
+            });
+            
+            // Sayfa yüklendiğinde URL'de hash varsa o tabı göster
+            if (window.location.hash) {
+                let tabId = window.location.hash.substring(1);
+                if (document.getElementById(tabId)) {
+                    showTab(tabId);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
